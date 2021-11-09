@@ -2,8 +2,13 @@
 public class Iterativ {
 
 	public static void main(String[] args) {
-		System.out.println(Summieren(3));
-
+		final long timeStart = System.nanoTime();
+		
+		System.out.println(Summieren(10000));
+		 	  
+	    final long timeEnd = System.nanoTime();
+	    System.out.println("Verlaufszeit der Schleife: " + (timeEnd - timeStart)/1000 + " Mikrosek.");
+		
 	}
 	
 	public static int Summieren(int number) {
