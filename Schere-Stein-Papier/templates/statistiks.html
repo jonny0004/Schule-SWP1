@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Werte Ausgabe</title>
+</head>
+<body>
+<h1>Ausgabe der WWerte vom Schere, Stein, Papier, Echse, Spock spiel</h1>
+
+
+
+
+
+{% block body %}
+
+
+	{% for key, value in dict.items() %}
+        {{ key }}
+		    {% for nut,taste in value.items() %}
+		        {{ nut }} = {{ taste }}<br>
+	    {% endfor %}
+        <br>
+        <br>
+	{% endfor %}
+
+{% endblock %}
+
+</body>
+</html>
