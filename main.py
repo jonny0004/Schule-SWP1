@@ -1,28 +1,96 @@
 import random
 
-i = 0
-liste = []
-while i < 45:
-    i = i + 1
-    liste.append(i)
-d=dict()
-for x in range(1,46):
-    d[x]=0
-temp1 = 0
-temp2 = 0
-def Ziehung():
-    i = 0
-    while i < 6:
-        temp1 = random.randrange(0, 44-i)
-        temp2 = liste[temp1]
-        liste[temp1] = liste[44-i]
-        liste[44-i] = temp2
 
-        d[liste[44-i]] = d[liste[44-i]] + 1
+class ListElement():
+    def __init__(self, obj):
+        self.obj = obj
+        self.nextElement = None
 
-        i = i + 1
-zahler = 0
-while zahler < 1000:
-    zahler = zahler + 1
-    Ziehung()
-print(d)
+    def setNextElem(self, nextElem):
+        self.nextElement = nextElem
+
+    def getNextElem(self):
+        return self.nextElement
+
+    def getObj(self):
+        return self.obj
+
+
+class EinfacheListe():
+    startElem = ListElement("Kopf")
+
+    def getFirstElem(self):
+        return self.startElem
+
+    def getLastElem(self):
+        le = self.startElem
+        while le.getNextElem() is not None:
+            le = le.getNextElem()
+        return le
+
+    def addLast(self, obj):
+        newElem = ListElement(obj)
+        lastElem = self.getLastElem()
+        lastElem.setNextElem(newElem)
+
+    def find(self, o):
+        le = self.startElem
+
+        while le is not None:
+
+            if le.getObj() == o:
+                return "True"
+            le = le.getNextElem()
+
+        return "False"
+
+    def writeList(self):
+        le = self.startElem
+        while le is not None:
+            print(le.getObj())
+            le = le.getNextElem()
+
+    def insertAfter(self, prevItem, newItem):
+        pointerElem = self.startElem.getNextElem()
+        while pointerElem is not None and not pointerElem.getObj() == prevItem:
+            pointerElem = pointerElem.getNextElem()
+
+        newElem = ListElement(newItem)
+        nextElem = pointerElem.getNextElem()
+        pointerElem.setNextElem(newElem)
+        newElem.setNextElem(nextElem)
+
+    def delete(self, o):
+        le = self.startElem
+        while le.getNextElem() is not None and not le.getObj() == o:
+            if le.getNextElem().getObj() == o:
+                if le.getNextElem().getNextElem() is not None:
+                    le.setNextElem(le.getNextElem().getNextElem())
+                else:
+                    le.setNextElem(None)
+                    break
+
+            le = le.getNextElem()
+
+    def laenge(self):
+        i = 0
+        le = self.startElem
+        while le is not None:
+            i = i +1
+            le = le.getNextElem()
+        return i
+
+
+
+
+def main():
+    liste1 = EinfacheListe()
+    for i in range(1,100):
+       liste1.addLast(random.randrange(1,100))
+
+    liste1.writeList()
+    print(liste1.laenge())
+
+
+if __name__ == "__main__":
+    main()
